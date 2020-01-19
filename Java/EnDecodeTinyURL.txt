@@ -1,0 +1,23 @@
+public class Codec {
+    static final Map<String, String> map = new HashMap<String,String>();
+    static final String baseurl = "http://tinyurl.com/";
+    // Encodes a URL to a shortened URL.
+    public String encode(String longUrl) {
+	//appends the hashcode of the longURL to the base url
+        String compressedUrl = baseurl+longUrl.hashCode();
+	//insert into hashmap, using the compressed url as the key to the longer url
+        map.put(compressedUrl, longUrl);
+	//return the new compressed url
+        return compressedUrl;
+        
+        
+    }
+
+    // Decodes a shortened URL to its original URL.
+    public String decode(String shortUrl) {
+	//return the value from the hashmap, given the key of the shortened url 
+        return this.map.get(shortUrl);
+    }
+}
+
+//pretty straightforward use of hashmap, using the built in .hashCode() to create a key for the url
