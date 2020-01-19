@@ -1,0 +1,20 @@
+//Given an array nums of integers, return how many of them contain an even number of digits.
+
+class Solution {
+    
+    public int findNumbers(int[] nums) {
+        int count = 0;
+        for(int val: nums){
+           int length = String.valueOf(val).length();
+
+            if(length%2==0){
+                count++;
+            }
+        }
+ 
+    return count;
+    }
+}
+
+//most interesting thing here is just the String.valueOf() which converted the int into String. 
+//otherwise, it's pretty straightforward
