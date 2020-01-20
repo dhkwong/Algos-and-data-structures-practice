@@ -1,0 +1,96 @@
+/*Given the root node of a binary search tree (BST) and a value to be inserted into the tree, insert the value into the BST. Return the root node of the BST after the insertion. It is guaranteed that the new value does not exist in the original BST.*/
+
+//faster iterative solution, removing insertion between nodes, uses a second node to hold previous node for when 
+//the runner hits null
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public TreeNode insertIntoBST(TreeNode root, int val) {
+        TreeNode run = root;
+        TreeNode pre = null;
+        while (run != null) {
+            pre = run;
+            if (val > run.val) run = run.right;
+            else run = run.left;
+        }
+        if (val > pre.val) {
+            pre.right = new TreeNode(val);
+        } else {
+            pre.left = new TreeNode(val);
+        }
+        return root;
+    }
+}
+
+
+
+//first solution was too slow, attempted to do iteratively as well as insert between nodes if number fit well there
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public TreeNode insertIntoBST(TreeNode root, int val) {
+        //time limit exceeded
+        TreeNode run = root;
+        TreeNode temp = new TreeNode(val);
+        while(run!= null){
+            if(val<run.val){//see which direction we're stepping next
+                if(!checkLeft(run)){//check for null
+                    if(run.left.val>val){ //if left is greater than val, insert
+                        temp.left = run.left;
+                        run.left = temp;
+                    }
+                    else{
+                        //step right
+                        run = run.left;
+                    }
+                }
+                else{
+                    //if null, insert left as leaf
+                    run.left = temp;
+                    return root;
+                    
+                }
+                
+            }
+            else if(val>run.val){
+                if(!checkRight(run)){
+                    if(run.right.val < val){//greater than run, but smaller than run.right
+                        temp.right = run.right;
+                        run.right = temp;
+                    }
+                    else{
+                        //step right
+                        run =run.right;
+                    }
+                }
+                else{
+                 //right is null and we insert as leaf
+                    run.right = temp;
+                    return root;
+                }
+            }
+        }
+        return root;
+    }
+    
+    public boolean checkLeft(TreeNode root){
+        return(root.left==null);
+    }
+     public boolean checkRight(TreeNode root){
+        return(root.right==null);
+    }
+}
