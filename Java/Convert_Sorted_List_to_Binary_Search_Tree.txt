@@ -1,0 +1,91 @@
+/*Given a singly linked list where elements are sorted in ascending order, convert it to a height balanced BST.
+
+For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1.*/
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) {val = x;}
+ * }
+ */
+//more concise version without using Stack, increasing time O(nlogn) and space complexity
+//O(1)
+public class Solution {
+public TreeNode sortedListToBST(ListNode head) {
+    if(head==null) return null;
+    return toBST(head,null);
+}
+public TreeNode toBST(ListNode head, ListNode tail){
+    ListNode slow = head;
+    ListNode fast = head;
+    if(head==tail) return null;
+    
+    while(fast!=tail&&fast.next!=tail){
+        fast = fast.next.next;
+        slow = slow.next;
+    }
+    TreeNode thead = new TreeNode(slow.val);
+    thead.left = toBST(head,slow);
+    thead.right = toBST(slow.next,tail);
+    return thead;
+}
+/*
+//my original solution, which didn't need a stack since the array was already ordered
+class Solution {
+    public TreeNode sortedListToBST(ListNode head) {
+        Stack<Integer> firstHalf = new Stack<>();
+        ListNode slowRun = head;
+        ListNode fastRun = head;
+        //move slowrunner to midpoint
+        while (fastRun!=null){
+            //allocate first half to stack
+            firstHalf.push(slowRun.val);
+            slowRun = slowRun.next;
+            fastRun = fastRun.next;
+            if(fastRun == null){
+                break;
+            }else{
+                fastRun = fastRun.next;
+            }
+        }
+        //set mid as root to return
+        TreeNode mid = new TreeNode(slowRun.val);
+        //step to end, inserting the top of stack and the runner val each time
+        while(slowRun != null){
+            if(!firstHalf.isEmpty()){
+                insert(mid, firstHalf.pop());
+                
+            }
+            insert(mid,slowRun.val);
+            slowRun = slowRun.next;
+        }
+        return mid;
+    }
+    public TreeNode insert(TreeNode root, int val){
+         if (root == null) { 
+            root = new TreeNode(val); 
+            return root; 
+        } 
+        /* Otherwise, recur down the tree */
+        if (val < root.val) 
+            root.left = insert(root.left, val); 
+        else if (val > root.val) 
+            root.right = insert(root.right, val); 
+  
+        /* return the (unchanged) node pointer */
+        return root; 
+    }
+}
+*/

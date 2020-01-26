@@ -1,0 +1,23 @@
+/*We are given a list nums of integers representing a list compressed with run-length encoding.
+
+Consider each adjacent pair of elements [a, b] = [nums[2*i], nums[2*i+1]] (with i >= 0).  For each such pair, there are a elements with value b in the decompressed list.
+
+Return the decompressed list.*/
+
+class Solution {
+    public int[] decompressRLElist(int[] nums) {
+        List<Integer> result = new ArrayList<>();
+        for (int i = 0; i < nums.length; i += 2)
+            for (int j = 0; j < nums[i]; ++j)
+                result.add(nums[i + 1]);
+        int[] finalResult = new int[result.size()];
+        for(int i = 0 ; i< result.size(); i++){
+            finalResult[i] = result.get(i);
+
+        }
+        return finalResult;
+	//return ans.stream().mapToInt(i -> i).toArray();
+    }
+}
+
+/* definitely a slower answer as compared to others, I believe it's the conversion to array that's slow. Another way posted for conversion was this: return ans.stream().mapToInt(i -> i).toArray(); */
