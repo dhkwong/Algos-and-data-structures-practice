@@ -1,0 +1,33 @@
+/*we can assume it's already contaminated. On top of that, since we already have to go through it once, we just insert all values into a set to change search time from O(nlogn) to O(1)*/
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class FindElements {
+    private Set<Integer> hash = new HashSet<>();
+        
+    public FindElements(TreeNode root) {
+        dfs(root,0);
+    }
+    public void dfs(TreeNode node, int val){
+        if(node == null) return;
+        hash.add(val);
+        dfs(node.left,(2*val+1));
+        dfs(node.right,(2*val+2));
+        
+    }
+    public boolean find(int target) {
+        return hash.contains(target);
+    }
+}
+
+/**
+ * Your FindElements object will be instantiated and called as such:
+ * FindElements obj = new FindElements(root);
+ * boolean param_1 = obj.find(target);
+ */
