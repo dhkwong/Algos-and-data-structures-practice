@@ -1,0 +1,28 @@
+/*
+Given four lists A, B, C, D of integer values, compute how many tuples (i, j, k, l) there are such that A[i] + B[j] + C[k] + D[l] is zero.
+
+Thoughts: classic use of the fast O(1) search time in finding keys. Allows us to search quickly and efficiently for the negative values of the a+b sum.
+*/
+
+class Solution {
+    public int fourSumCount(int[] A, int[] B, int[] C, int[] D) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int a: A){
+            for(int b:B){
+                int val = a + b;
+                //sets value and counts how many combinations have that value
+                map.put(val, map.getOrDefault(val, 0)+1);
+            }
+        }
+        int result = 0;
+        for(int c: C){
+            for(int d:D){
+                /*make c and d negative since only the negative values will give the key value. E.g a+b = 3, we're searching for c+d=-3. But when we map.get, we need to get the positive value. So multiply by -1 aka map.get(-1(c+d))*/
+                int val = -c-d;
+                //adds how many values and combinations will equal zero. Else += 0
+                result += map.getOrDefault(val, 0);
+            }
+        }
+        return result;
+    }
+}
