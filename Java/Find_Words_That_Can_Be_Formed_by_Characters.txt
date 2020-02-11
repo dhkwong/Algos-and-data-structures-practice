@@ -1,0 +1,47 @@
+/*
+You are given an array of strings words and a string chars.
+
+A string is good if it can be formed by characters from chars (each character can only be used once).
+
+Return the sum of lengths of all good strings in words.
+
+ 
+
+Example 1:
+
+Input: words = ["cat","bt","hat","tree"], chars = "atach"
+Output: 6
+Explanation: 
+The strings that can be formed are "cat" and "hat" so the answer is 3 + 3 = 6.
+
+Thoughts: Got stuck a while on the charlist.remove() since I was doing .remove(word.charAt(i)), which was giving me an actual integer representation of the character itself, requiring me to typecast it. 
+
+If I had to do it again, I would use a hashmap to keep characters as key, and count as value, since searching/.contains() through keys are O(1) time while linkedlist.contains is O(n).
+*/
+
+class Solution {
+    public int countCharacters(String[] words, String chars) {
+        char[] charA = chars.toCharArray();
+        
+        int count = 0;
+        for(String word: words){
+            int tempcount =0;
+            List<Character> charlist = new LinkedList<>();
+            for(char c : charA){
+                charlist.add(c);
+                
+            }
+            for(int i = 0 ; i <word.length(); i++){
+                if(charlist.contains(word.charAt(i))){
+                    charlist.remove((Character)word.charAt(i));
+                    tempcount++;
+                }else{
+                    tempcount =0;
+                    break;
+                }
+            }
+            count +=tempcount;
+        }
+        return count;
+    }
+}
