@@ -1,0 +1,16 @@
+/*
+Given an array of duplicate values with a single non-duplicate value, return the non-duplicated value. e.g [1,2,2,3,3,4,4] returns 1 [1,1,5,5,3,4,3] returns 4
+
+The array only has even counts of each duplicated number
+*/
+
+class Solution {
+    public int singleNumber(int[] nums) {
+        int r = nums[0];
+        for(int i = 1; i < nums.length; i++){
+	//since XOR is commutative, we can do this
+            r ^= nums[i];
+        }
+        return r;
+    }
+}

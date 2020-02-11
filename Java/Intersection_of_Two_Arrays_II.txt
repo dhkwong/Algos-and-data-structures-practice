@@ -1,0 +1,43 @@
+/*
+Return an array of values where the two arrays intersect
+
+Pushed all <values,count> from one array into a hash map, then compared and subtracted from the value from the given key match to ensure count of each intersecting instance is accurate.
+
+Runtime: O(i+j+k)
+Where i = nums1.length
+j = nums2.length
+k = result.length
+
+Memory Complexity: O(m + n)
+M = nums1.length
+n = how many values intersect
+
+ 
+*/
+
+class Solution {
+    public int[] intersect(int[] nums1, int[] nums2) {
+        Map<Integer,Integer> compare = new HashMap<>();
+        List<Integer> result = new ArrayList<>();
+        //append to compare hashmap
+        for(int num : nums1){
+            compare.put(num, compare.getOrDefault(num,0)+1);
+        }
+        //compare to nums2, and subtract 1 from value at each instance
+        for(int num: nums2){
+            if(compare.containsKey(num) && compare.get(num)>0){
+                result.add(num);
+                compare.put(num, compare.get(num)-1);
+            }
+        }
+	//push from array list to array to be returned
+        int[] finalArr = new int[result.size()];
+        int index = 0;
+        for(int val: result){
+            //assigns at index then increments by one
+            //same as result.get(i) which has O(1) O-time best case assuming no collisions/even key,value distribution across buckets
+            finalArr[index++] = val;
+        }
+        return finalArr;
+    }
+}

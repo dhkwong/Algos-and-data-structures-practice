@@ -1,0 +1,23 @@
+/*
+Find if an array has duplicates.
+
+less memory complex way is to use Arrays.sort, then compare if(nums[i]==nums[i++])
+That way, runtime is: O(nlogn + n) where nlogn is arrays.sort time, and n is if only the largest values are duplicates. Memory complexity is: O(1) since it runs in place
+
+The way below is runtime:O(n) and memory complexity of O(n) due to the creation an insertion of all values into the set. 
+*/
+
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        for(int num : nums){
+            if (set.contains(num)){
+                return true;
+            }else{
+                set.add(num);
+            }
+            
+        }
+        return false;
+    }
+}
