@@ -1,0 +1,29 @@
+/*
+This was a deceptively simple one to concisely execute
+Given a non-empty array of digits representing a non-negative integer, plus one to the integer.
+each element in the array has only one digit.
+
+seems simple at first, but the cool part is just iterating backwards from right to left checking if the number is less than 9. If it is, then add one. else, make it zero and carry the 1 over since you know it's always going to be 9.
+
+the last three lines are for if an array is filled with 9's. e.g [9,9,9]<=this example has length of 3
+then, we create an array with the same length+1 aka [ , , , ]<=length of 4. Which Java automatically defaults ints to zero as they are primitives and not Integer object which defaults to null. Hence, the new array is now, [0,0,0,0] and we simply make newArr[0] = 1 aka[1,0,0,0]. 
+
+*/
+
+class Solution {
+    public int[] plusOne(int[] digits) {
+        int len = digits.length;
+        for(int i = len-1; i>=0; i--){
+            if(digits[i]<9){
+                //if array at i is less than 9, add 1
+                 digits[i]+=1;
+                return digits;
+            }
+            //otherwise digits[i] ==9
+            digits[i]=0;
+        }
+       int[] result = new int[len+1];
+       result[0]=1; 
+       return result;
+    }
+}
