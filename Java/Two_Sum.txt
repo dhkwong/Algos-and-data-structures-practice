@@ -1,0 +1,31 @@
+/*
+Given an array of ints and a target value, return the index pair of the two numbers in the array that add up to the target value. There is only one solution, and you cannot count an index twice.
+
+e.g Given nums = [2, 7, 11, 15], target = 9,
+
+Because nums[0] + nums[1] = 2 + 7 = 9,
+return [0, 1].
+
+Thoughts: so I knew I was using a hashmap to assign the values as keys, given that the search time for the complement would be O(1). However, map.containsKey() cannot exclude values. So I could either manually check each value to see if it's the same index as the one I'm currently checking, OR I simply check each value as I'm about to insert it into the hash map as shown below
+*/
+
+
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+        // List<Integer> result = new ArrayList<>();
+        int[] finalresult = new int[2];
+        //iterate through array
+        for(int i = 0; i < nums.length; i++){
+            //target - the value we're checking
+            //index is the single possible value, given the value at nums[i]
+            int index = target - nums[i];
+            if(map.containsKey(index)){
+                return finalresult= new int[]{map.get(index), i};
+            }
+            //else place in map.<value, index> this way prevents double counting a given value by placing all values into hashmap to compare first
+            map.put(nums[i], i);
+        }
+        return finalresult;
+    }
+}

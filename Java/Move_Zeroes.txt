@@ -1,0 +1,25 @@
+/*
+Given an array of integers, retain the relative position of all nonzero integers while shifting all zeroes to the right e.g[1,0,0,3,12,0] => [1,3,12,0,0,0]
+
+To tackle this, I simply had a slow and fast pointer. The slow pointer marked where to insert the given nonzero integer that fast had found. The fast pointer would simply keep moving from right to left, telling the slow pointer what integer to insert if there was one found. After which, the slow pointer would insert zeroes at each remaining index location, after the fast pointer had reached the end.
+*/
+
+
+class Solution {
+    public void moveZeroes(int[] nums) {
+        if (nums == null || nums.length == 0) return;
+        int slow = 0, fast = 0;
+        while (fast < nums.length) {
+            if (nums[fast] != 0) {
+                nums[slow] = nums[fast];
+                slow++;
+            } 
+            fast++;
+        }
+        //fill left part with all 0s
+        while (slow < nums.length) {
+            nums[slow] = 0;
+            slow++;
+        }
+    }
+}
