@@ -1,0 +1,71 @@
+/*
+Given a singly linked list L: L0→L1→…→Ln-1→Ln,
+reorder it to: L0→Ln→L1→Ln-1→L2→Ln-2→…
+
+You may not modify the values in the list's nodes, only nodes itself may be changed.
+
+Example 1:
+
+Given 1->2->3->4, reorder it to 1->4->2->3.
+
+*/
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public void reorderList(ListNode head) {
+        if (head == null) {
+            return;
+        }
+
+        //find preMiddle of the list
+        ListNode left = head;
+        ListNode right = head;
+        while (right.next != null && right.next.next != null) {
+            left = left.next; //left becomes middle
+            right = right.next.next;
+        }
+
+        //reverse the right part of the list
+        //eg1: 1->2->3->4->5->6  =>  1->2->3->6->5->4
+        //eg2: 1->2->3->4->5     =>  1->2->3->5->4
+        ListNode leftTail = left;
+        ListNode rightHead = left.next;
+        ListNode newRightHead = null;
+        while (rightHead != null) {
+            ListNode nextNode = rightHead.next;
+            rightHead.next = newRightHead;
+            newRightHead = rightHead;
+            rightHead = nextNode;
+        }
+
+        //merge two parts of list one by one
+        //eg: 1->2->3 & 6->5->4 to 1->6->2->5->3->4
+        //iterations: 1->6->2 => 1->6->2->5->3 => 1->6->2->5->3->4->null
+        ListNode curLeft = head;
+        ListNode curRight = newRightHead;
+        while (curLeft != leftTail) {
+            ListNode nextRight = curRight.next;
+            ListNode nextLeft = curLeft.next;
+            curLeft.next = curRight;
+            //The last iteration will set tail.next to null if the size of list is even
+            curRight.next = nextLeft;
+            curLeft = nextLeft;
+            curRight = nextRight;
+        }
+
+        //if the size of list is odd, we need to set the right tail to null
+        //to avoid cycling linked list
+        if (curRight == null) {
+            curLeft.next = null;
+        }
+        
+    }
+}
