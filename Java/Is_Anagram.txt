@@ -1,0 +1,38 @@
+/*
+Checks for an anagram, but honestly could be faster. Used a hash map, but the faster method would be to create my own hash with int hash[] = new int[128]; Then each char value would point to an index in the hash
+*/
+class Solution {
+    public boolean isAnagram(String s, String t) {
+   if (s.length() != t.length()){
+            return false;
+        }
+        Map<Character, Integer> map = new HashMap<Character, Integer>();
+        for (int i=0;i<s.length();i++){
+            char c = s.charAt(i);
+            if (map.containsKey(c)){
+                Integer k = map.get(c);
+                k = k+1;
+                map.put(c,k);
+            }
+            else{
+                map.put(c, 1);
+            }
+        }
+        for (int i=0;i<t.length();i++){
+            char c = t.charAt(i);
+            if (!map.containsKey(c)){
+                return false;
+            }
+            Integer k = map.get(c);
+            if (k == 1){
+                map.remove(c);
+            }
+            else{
+                k = k-1;
+                map.put(c, k);
+            }
+        }
+        return true;
+        
+    }
+}
