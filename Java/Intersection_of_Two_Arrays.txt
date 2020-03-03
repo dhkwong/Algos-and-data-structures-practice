@@ -1,0 +1,27 @@
+class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        //create two hashsets to remove duplicity
+        Set<Integer> compareSet = new HashSet<>();
+        Set<Integer> result = new HashSet<>();
+        
+        //insert nums1 into set to compare
+        for(int i:nums1){
+            compareSet.add(i);
+        }
+        
+        //iterate through nums2 to see if values exist in nums1 set
+        for(int i = 0; i<nums2.length; i++){
+            if(compareSet.contains(nums2[i])){
+                result.add(nums2[i]);
+            }
+        }
+        //push to an array
+        int[] arr = new int[result.size()];
+        int counter = 0;
+        for(int x: result) arr[counter++] = x;
+        
+        return arr;
+
+        
+    }
+}

@@ -1,0 +1,49 @@
+class Solution {
+    public boolean wordPattern(String pattern, String str) {
+        Map<Character, String> hash = new HashMap<Character,String>();
+        char[] letters = pattern.toCharArray();
+        
+        String[] words = str.split(" ");
+        Set<String> wordStore = new HashSet<String>(); 
+        if(letters.length!=words.length){
+            return false;
+        }
+        for(int i = 0; i < letters.length; i++){
+            //check if key already exists
+            //if key exists, check that value matches else return false
+            if(hash.containsKey(letters[i])){
+                if(!hash.get(letters[i]).equals(words[i])){
+                    return false;
+                }
+             }  
+            //if key does not exist, check if word already exists. if it does, return false
+            else if(wordStore.contains(words[i])){
+                return false;
+            }else{
+                wordStore.add(words[i]);
+                hash.put(letters[i], words[i]);
+            }
+        }
+        return true;
+    }
+}
+
+
+// {
+//     //hashmap
+//     a: dog,
+//     b: cat,
+//     c: 
+    
+//     //hashset
+//     dog
+//     cat
+//     dog
+// }
+
+//detect non-unique letters AND non-unique words
+//maintain a mapping between letters to words
+//repetition should only happen as defined by the mapping
+
+//mapping: hashmap
+//detect uniqueness: hashtable
