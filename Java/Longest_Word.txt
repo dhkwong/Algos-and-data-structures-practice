@@ -1,0 +1,50 @@
+class Solution {
+    private final int R = 26;
+    private TrieNode root;
+    
+    private static class TrieNode{
+        private final TrieNode[] children;
+        private String word;
+        private TrieNode(){
+            children = new TrieNode[26];
+            word = null;
+        }
+    }
+    private void insertWord(String word){
+        int len = word.length();
+        TrieNode curr = root;
+        char c;
+        int idx;
+        for(int i = 0; i <len; ++i){
+            c = word.charAt(i);
+            idx = c-'a';
+            if(curr.children[idx] == null){
+                curr.children[idx] = new TrieNode();
+            }
+            curr = curr.children[idx];
+        }
+        curr.word = word;
+    }
+
+    private String findLongestWord(TrieNode root){
+        String rst = root.word == null ? "": root.word;
+        for(TrieNode child : root.children){
+            if(child == null || child.word == null) continue;
+            String s = findLongestWord(child);
+            if(s.length()> rst.length()) rst = s;
+        }
+        return rst;
+    }
+    
+    public String longestWord(String[] words) {
+        root = new TrieNode();
+
+        // construct the trie based on input dictionary words
+        for (String word : words) {
+            insertWord(word);
+        }
+
+        // find the longest dictionary word in this trie according to given rules
+        return findLongestWord(root);
+    }
+}
