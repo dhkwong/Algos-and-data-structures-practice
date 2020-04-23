@@ -1,0 +1,62 @@
+/*
+Sorting list using constant space complexity
+I understand that using the recursive stack isn't strictly O(1) space. However, we're using no extra structures by doing merge sort
+
+*/
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode sortList(ListNode head) {
+        //null or list with one node
+        if(head == null || head.next == null) return head;
+        
+        //bisect list
+        ListNode prev = null;
+        //ends at middle
+        ListNode mid = head;
+        //ends at end
+        ListNode runner = head;
+        
+        while(runner!=null && runner.next != null){
+            prev = mid;
+            mid = mid.next;
+            runner = runner.next.next;
+        }
+        //may be uneccessary
+        prev.next = null;
+        
+        //sort
+        ListNode node1 = sortList(head);
+        ListNode node2 = sortList(mid);
+        return merge(node1, node2);
+    }
+   public ListNode merge(ListNode l1, ListNode l2) {
+        ListNode l = new ListNode(0), p = l;
+
+        while (l1 != null && l2 != null) {
+          if (l1.val < l2.val) {
+            p.next = l1;
+            l1 = l1.next;
+          } else {
+            p.next = l2;
+            l2 = l2.next;
+          }
+          p = p.next;
+        }
+
+        if (l1 != null)
+          p.next = l1;
+
+        if (l2 != null)
+          p.next = l2;
+
+        return l.next;
+  }
+}
