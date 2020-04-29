@@ -1,0 +1,43 @@
+/*
+Check if there's a loop
+*/
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+//uses a list to check. Exceptionally slow
+var hasCycle = function(head) {
+    let list = []
+    while(head!= null){
+        if(list.includes(head)){
+            return true
+        }
+        list.push(head)
+        head = head.next
+    }
+    return false
+};
+/*
+//uses a slow runner and fast runner. If they overlap, they will be the same node at some point
+var hasCycle = head => {
+    let slow = head,
+        fast = head;
+    while (slow && fast && fast.next) {
+        slow = slow.next;
+        fast = fast.next.next;
+        if (slow == fast)
+            return true;
+    }
+    return false;
+};
+
+*/
