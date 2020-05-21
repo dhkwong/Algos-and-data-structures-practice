@@ -1,0 +1,37 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+        //three pointers. one at head, one at k-1, one and end of list
+        if(head == null) return head;
+        ListNode pre = new ListNode(0);
+        pre.next = head;
+        ListNode beforek=head;
+        ListNode end = head;
+        ListNode newhead = new ListNode(0);
+        int length = 1;  
+        //iterate to end of list to find length, find point before k index
+        
+        while(end.next != null){
+            end = end.next;
+            System.out.println("end.val "+end.val);
+            length++;
+        }
+        System.out.println("end.next"+end.val+"len"+length);
+        //since we start length at 0 and end starts at head, we can do i<length
+        for(int i=length-k%length;i>1;i--){
+            beforek = beforek.next;
+        }
+        System.out.println("beforek.next: "+beforek.val);
+        end.next = head;
+        head = beforek.next;
+        beforek.next =null;
+        return head;
+    }
+}
