@@ -4,10 +4,6 @@ definitely overcomplicated it at first, but after pivoting from checking substri
 class Solution {
     public List<String> findRepeatedDnaSequences(String s) {
         Set seen = new HashSet(), repeated = new HashSet();
-        List<String> res = new ArrayList<>();
-         if(s.length() == 0){
-            return res;
-        }
         for(int i = 0; i+9 < s.length() ; i++){
             String substr = s.substring(i, i+10);
             //if exists in seen, aka exists, then add to repeated. 
