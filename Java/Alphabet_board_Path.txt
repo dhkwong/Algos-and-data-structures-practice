@@ -1,0 +1,25 @@
+class Solution {
+    public String alphabetBoardPath(String target) {
+        //create coordinates 
+        int x = 0, y = 0;
+        StringBuilder sb = new StringBuilder();
+        //change letter to char
+        for(char ch : target.toCharArray()){
+            //mod5 for column. if greater than 5, then move that many columns. 
+            int x1 = (ch-'a')%5;
+            //divide by 5 for rows.
+            int y1 = (ch-'a')/5;
+            //math.max. aka the total distance from the relative position of x,y and x1,y1 while adding that many copies/moves U,R,L, or D.
+            sb.append(String.join("",Collections.nCopies(Math.max(0,y-y1),"U"))+
+                      String.join("",Collections.nCopies(Math.max(0,x1-x),"R"))+
+                      String.join("",Collections.nCopies(Math.max(0,x-x1),"L"))+
+                      String.join("",Collections.nCopies(Math.max(0,y1-y),"D"))+ "!");
+            
+            
+            //set coordinates for next char
+             x=x1;
+             y=y1;
+        }
+        return sb.toString();
+    }
+}
