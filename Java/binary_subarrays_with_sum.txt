@@ -1,0 +1,18 @@
+public class Solution {
+    public int subarraySum(int[] nums, int k) {
+        int sum = 0, result = 0;
+        Map<Integer, Integer> preSum = new HashMap<>();
+        preSum.put(0, 1);
+        // you ADD get sums-k. because if the difference exists before, you know if current sum is 10 with target 2, and there exists d.get(sums-target) aka d.get(10-2 =8), you know that there is a sum of 2. you also add up every previous time that particular value occurs. aka(1,0,0,1) counts all the previous times the sum held there at 1 till it finally hit 2
+        
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            if (preSum.containsKey(sum - k)) {
+                result += preSum.get(sum - k);
+            }
+            preSum.put(sum, preSum.getOrDefault(sum, 0) + 1);
+        }
+        
+        return result;
+    }
+}
