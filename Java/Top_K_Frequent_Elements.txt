@@ -1,0 +1,54 @@
+/*
+Given a non-empty array of integers, return the k most frequent elements.
+
+Example 1:
+
+Input: nums = [1,1,1,2,2,3], k = 2
+Output: [1,2]
+Example 2:
+
+Input: nums = [1], k = 1
+Output: [1]
+Note:
+
+You may assume k is always valid, 1 ≤ k ≤ number of unique elements.
+Your algorithm's time complexity must be better than O(n log n), where n is the array's size.
+It's guaranteed that the answer is unique, in other words the set of the top k frequent elements is unique.
+You can return the answer in any order.
+*/
+
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        List<Integer>[] res = new List[nums.length + 1];
+       
+        Map<Integer, Integer> count = new HashMap<>();
+        for(int i : nums){
+            count.put(i,count.getOrDefault(i,0)+1);
+        }
+        //count is populated with nums and the frequency
+        for(int key : count.keySet()){
+            int keyCount = count.get(key);
+            if(res[keyCount] == null){
+                //create new arraylist at index if doesn't exist. Index is the count of the key
+                res[keyCount] = new ArrayList<>();
+            }
+            //if already exists, add key at the index location
+            res[keyCount].add(key);
+        }
+        
+        List<Integer> result =  new ArrayList<>();
+        //insert backwards from max as the index is the size. right to left of array. If the index location is null, there's no key for that count, and keep moving left. keep going till the result we're returning.size hits k, capping at k.
+        for(int i = res.length - 1;i>=0 && result.size()< k; i--){
+           if(res[i]!= null){
+               //if there's something, add the key, as that's the next largest counted key
+               result.addAll(res[i]);
+           }
+        }
+	// convert ArrayList<Integer> to int
+        int[] finalres = new int[result.size()];
+        for(int i = 0 ; i < result.size(); i++){
+            finalres[i] = result.get(i);
+        }
+        return finalres;
+    }
+}

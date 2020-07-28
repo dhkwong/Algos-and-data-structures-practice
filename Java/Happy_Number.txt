@@ -1,0 +1,45 @@
+class Solution {
+    public int square(int i){
+        int total = 0;
+        int temp= 0;
+        while(i>0){
+            temp = i%10;
+            total += temp*temp;
+            i/=10;
+        }
+        return total;
+    }
+    public boolean isHappy(int n) {
+        /* Here's the core. you'll check for the happy number by looping over and over with a slow and fast number. when the slow number ever reaches the fast value, you check to see if it's a happy number aka 1. Otherwise, it will eventually become the fast number, because mathematically, these numbers will end up looping on themselves when running this particular mathematic function.
+        
+        for example:
+            1^2 + 1^2 = 2
+            2^2 = 4 ------> notice that from here we are starting with 4
+            4^2 = 16
+            1^2 + 6^2 = 37
+            3^2 + 7^2 = 58
+            5^2 + 8^2 = 89
+            8^2 + 9^2 = 145
+            1^2 + 4^2 + 5^2 = 42
+            4^2 + 2^2 = 20
+            2^2 + 0^2 = 4 -------> notice that we just get back to 4 again
+            
+        OR in case of Happy Number:
+            12 + 92 = 82
+            82 + 22 = 68
+            62 + 82 = 100
+            12 + 02 + 02 = 1        
+        */
+
+        int slow = n;
+        int fast = n;
+        do{
+            slow = square(slow);
+            fast = square(fast);
+            fast = square(fast);
+        }while(slow!=fast);
+        //at this point, either slow = 1 or it's caught up to fast somewhere in the looped list of values using the Floyd Cycle detection algorithm. Think of this as a linked list of values.
+        if(slow == 1) return true;
+        return false;
+    }
+}
