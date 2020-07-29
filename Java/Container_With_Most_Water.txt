@@ -1,0 +1,26 @@
+/*
+Given n non-negative integers a1, a2, ..., an , where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Find two lines, which together with x-axis forms a container, such that the container contains the most water.
+
+Note: You may not slant the container and n is at least 2.
+The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. In this case, the max area of water (blue section) the container can contain is 49.
+*/
+
+class Solution {
+    public int maxArea(int[] height) {
+        //sliding window problem
+        int i = 0;
+        int j = height.length-1;
+        int result = 0;
+        while(i<j){
+            //max between previous max volume and new max volume(size of bottom(i-j)*lowest height(Math.min(height[i],height[j]) since the container can only hold water as high as its lowest side))
+            result = Math.max(result,(j-i)*Math.min(height[i],height[j]));
+            //if height[left side]<height[right side] move left forward to seek higher container side
+            if(height[i]<height[j]){
+                i++;
+            }else{
+                j--;
+            }
+        }
+        return result;
+    }
+}
