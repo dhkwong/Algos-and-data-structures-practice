@@ -1,0 +1,14 @@
+/**
+ * @param {number} x
+ * @return {number}
+ */
+var reverse = function(x) {
+    //take absolute val since you dont want the dash in there if analyzing bit size, convert to string, split it, reverse it, and join again. default join adds commas in between
+    const reversed = Math.abs(x).toString().split('').reverse().join('')
+    if(reversed > 2**31){
+        //if larger than 32 bits return 0
+        return 0;
+    }
+    //converts back to Number because multiplying by the sign of x (-1 OR 1) converts string into Number
+    return reversed*Math.sign(x)
+};

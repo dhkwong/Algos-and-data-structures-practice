@@ -1,0 +1,20 @@
+/**
+ * @param {number[]} A
+ * @return {number}
+ */
+var largestPerimeter = function(A) {
+    //sort descending
+    A.sort(function(a,b){
+        //the sort function takes the comparison function as a parameter. Hence, b-a is descending and a-b is ascending
+        return b-a;
+    })
+    for(let i = 0; i < A.length-2; i++){
+        //we run left to right since it's sorted, so the top 3 will always be the most viable options
+        let sum = A[i+1]+A[i+2];
+        //longest side is NEVER longer than the sum of the two smaller sides
+        if(sum>A[i]){
+            return sum+ A[i];
+        }
+    }
+    return 0;
+};

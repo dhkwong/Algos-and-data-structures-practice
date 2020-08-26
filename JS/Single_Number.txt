@@ -1,0 +1,15 @@
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var singleNumber = function(nums) {
+    //reduce(a,b) a is the accumulator. at each new index left to right, it accumulates based on the function. Here, we XOR it. giving 0 as the starting value. b is the current value it's checking at the index
+    //so assuming nums[2,2,1] then 0 xor 2 is 2. thus prev = 2. next, 2 xor 2(aka nums[1]) = 0 so the prev is converted to 0 aka undefined in JS since we DIRECTLY  influence prev with prev^curr. Lastly, 0/undef xor 1(aka nums[2]) = 1 so prev is changed to 1. You can think of it as prev = prev^curr. Finally the function returns the accumulator we named prev
+  return nums.reduce((prev, curr) => {
+      //without log functions, it's faster than 80% of users, but keeping in for learning
+    console.log("prev"+prev)          
+    console.log("curr:"+curr)
+      //remember to have a return when using multi line ES6 fat arrow function. Single line is just => prev ^ curr,0);
+    return prev ^ curr 
+  }, 0);
+}
