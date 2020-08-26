@@ -1,0 +1,25 @@
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstring = function(s) {
+    var map = new Map();
+    var start = 0, maxLen = 0;
+  for(var i = 0; i < s.length; i++) {
+      var ch = s[i];
+      // console.log("i: "+i+" ch: "+ch)
+      //map.get(ch) will be always >= start because it is a duplicate. Otherwise it returns null since the key value pair doesn't exist yet
+      if(map.get(ch) >= start){ 
+          // console.log("start: "+start)
+          // console.log("ch: "+ch)
+          start = map.get(ch) + 1;
+                               
+        }
+      //reassigns the duplicate. updates it to new duplicate location
+      map.set(ch, i);
+    
+      if(i - start + 1 > maxLen) maxLen = i - start + 1;
+  }
+
+  return maxLen;
+};
