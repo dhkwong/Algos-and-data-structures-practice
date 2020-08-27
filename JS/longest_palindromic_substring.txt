@@ -24,6 +24,8 @@ var longestPalindrome = function(s) {
       }
         
     }
+	// Optimize for if no better move exists
+        if (Math.ceil(longest.length / 2) >= s.length - i) break;
   }
   return longest;
 };
