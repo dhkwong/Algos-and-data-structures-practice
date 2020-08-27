@@ -1,0 +1,29 @@
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var longestPalindrome = function(s) {
+  var longest = '';
+  for (var i = 0; i < s.length; i++) {
+    // loop for different palindromes like 'aba' and 'abba', it increments end forward one, just in case to account for double letters. otherwise, it'll be a palindrome for the next i iteration. e.g, abbba
+    for (var j = 0; j < 2; j++) {
+      var start = i;
+      var end = i + j;
+      while (s[start] && s[start] === s[end]) {
+        start--;
+        end++;
+      }
+      // here imagine we get into string like
+      // "sabbad", then
+      // end = 5
+      // start = 0
+      // and actual length of "abba" should be "4"
+      // 5 - 0 - 1 === 4
+      if ((end - start - 1) > longest.length) {
+        longest = s.substring(start + 1, end);
+      }
+        
+    }
+  }
+  return longest;
+};
