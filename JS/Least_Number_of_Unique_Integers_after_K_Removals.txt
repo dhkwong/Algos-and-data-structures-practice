@@ -1,0 +1,56 @@
+/*
+Given an array of integers arr and an integer k. Find the least number of unique integers after removing exactly k elements.
+
+Example 1:
+
+Input: arr = [5,5,4], k = 1
+Output: 1
+Explanation: Remove the single 4, only 5 is left.
+
+Example 2:
+Input: arr = [4,3,1,1,3,3,2], k = 3
+Output: 2
+Explanation: Remove 4, 2 and either one of the two 1s or three 3s. 1 and 3 will be left.
+
+
+*/
+
+/**
+ * @param {number[]} arr
+ * @param {number} k
+ * @return {number}
+ */
+var findLeastNumOfUniqueInts = function(arr, k) {
+    let map = {}
+    let uniqueInts = 0
+    for(let i = 0; i < arr.length; i++){
+        //if key doesnt exist, add it to map
+        if(!map[arr[i]]){
+            //create key
+            map[arr[i]] = 0
+            uniqueInts++
+        }
+        //add one to value
+        map[arr[i]]++
+    }
+    //returns a 2d array. each index contains a length of 2 subarray with [i][0] being the key and [i][1] the value
+    let count = Object.entries(map)
+    //sort by ascending values
+    count.sort((a,b)=>{
+        return a[1]-b[1]
+    })
+    //start removing from k
+    for(let i=0; i<count.length; i++){
+        //if k>= the value of the first key value pair, with the value being the smallest
+        if(k >= count[i][1]){
+        
+        k-=count[i][1]
+        
+        uniqueInts--
+        }else{
+            break
+        }
+    }
+    return uniqueInts
+};
+
