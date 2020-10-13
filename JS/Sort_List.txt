@@ -1,0 +1,62 @@
+/*
+Given the head of a linked list, return the list after sorting it in ascending order.
+
+Follow up: Can you sort the linked list in O(n logn) time and O(1) memory (i.e. constant space)?
+
+Basically, merge sort
+*/
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var sortList = function(head) {
+    if (head === null || head.next === null) {
+        return head;
+    }
+    let fast = head.next;
+    let slow = head;
+    //find midpoint of selection
+    while (fast !== null && fast.next !== null) {
+        fast = fast.next.next;
+        slow = slow.next;
+    }
+    //first node of right selection
+    const mid = slow.next;
+    slow.next = null;
+    //first node of left selection
+    let left = sortList(head);
+    let right = sortList(mid);
+    //make dummy node for list reconstruction, with dummy.next being the start of the organized list
+    const dummy = new ListNode(0);
+    let h = dummy;
+    //while still values
+    while (left !== null && right !== null) {
+        if (left.val < right.val) {
+            //if left value is smaller, choose left val and increment node
+            h.next = left;
+            left = left.next;
+        } else {
+            //else choose right val and increment right node
+            h.next = right;
+            right = right.next;
+        }
+        //move dummy right
+        h = h.next;
+    }
+    //if leftover node in left or right, place it at the end, as it's the largest in this iteration/selection
+    if (left) {
+        h.next = left;
+    }
+    if (right) {
+        h.next = right;
+    }
+    //return the head of the sorted selection
+    return dummy.next;
+};
