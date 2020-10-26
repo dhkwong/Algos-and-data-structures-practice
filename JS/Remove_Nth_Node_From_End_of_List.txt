@@ -1,0 +1,32 @@
+//remove nth node from the end, one pass method
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+var removeNthFromEnd = function(head, n) {
+    let run1 = head
+    let pre = new ListNode()
+    pre.next= head
+    
+    let run2 = pre
+    let count = 0
+    while(run1 != null){
+        run1 = run1.next
+        count++
+        if(count > n){
+            run2 = run2.next
+        } 
+    }
+    if(run2.next !== null){
+        run2.next = run2.next.next       
+    }
+    return pre.next
+};
