@@ -1,0 +1,15 @@
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var frequencySort = function(nums) {
+    const map = new Map();
+    for (let n of nums) {
+        map.set(n, (map.get(n) + 1) || 1);
+    }
+    //sort nums array by the frequency value when you get by the key value of the integer at a or b.
+    //if the frequency is the same, sort in decreasing (b-a) order. hence ||b-a
+    // another way to describe it is nums.get(a) == nums.get(b) ? b - a : nums.get(a) - nums.get(b)
+    return nums.sort((a, b) =>
+                     map.get(a) - map.get(b) || b - a)
+};
