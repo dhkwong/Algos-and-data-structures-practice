@@ -1,0 +1,71 @@
+/*
+Given a word, you need to judge whether the usage of capitals in it is right or not.
+
+We define the usage of capitals in a word to be right when one of the following cases holds:
+
+All letters in this word are capitals, like "USA".
+All letters in this word are not capitals, like "leetcode".
+Only the first letter in this word is capital, like "Google".
+Otherwise, we define that this word doesn't use capitals in a right way.
+ 
+
+Example 1:
+
+Input: "USA"
+Output: True
+ 
+
+Example 2:
+
+Input: "FlaG"
+Output: False
+*/
+/**
+ * @param {string} word
+ * @return {boolean}
+ */
+var detectCapitalUse = function(word) {
+    if(word.length == 1){
+        return true
+    }
+    //if first letter is lowercase
+    if(determineCase(word[0])==false){
+    for(let i = 0; i <word.length; i++){
+    // if any letter is upper, return false
+      if(determineCase(word[i])==true){
+          return false
+      }
+    }
+    }
+    //if first two letter is uppercase
+    if(determineCase(word[0])== true && determineCase(word[1]) == true){
+        //start at 0 in case it's a 2 letter long word
+        for(let i = 1; i <word.length; i++){
+    // if any letter is lower, return false
+      if(determineCase(word[i])==false){
+          return false
+      }
+    }
+    }
+    //if first letter is upper and second is lower, all the rest must be lower
+    if(determineCase(word[0])==true && determineCase(word[1])==false){
+        if(word.length == 2){
+            return true
+        }
+        for(let i = 1; i <word.length; i++){
+        // if any letter is upper, return false
+      if(determineCase(word[i])==true){
+          return false
+      }
+    }
+    }
+    return true
+    //returns false for lower, true for upper
+    function determineCase(letter){
+        if(letter.toLowerCase() == letter){
+            return false
+        }else{
+            return true
+        }
+    }
+};

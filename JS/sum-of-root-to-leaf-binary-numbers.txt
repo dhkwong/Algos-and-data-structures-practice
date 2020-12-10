@@ -1,0 +1,44 @@
+/*
+You are given the root of a binary tree where each node has a value 0 or 1.  Each root-to-leaf path represents a binary number starting with the most significant bit.  For example, if the path is 0 -> 1 -> 1 -> 0 -> 1, then this could represent 01101 in binary, which is 13.
+
+For all leaves in the tree, consider the numbers represented by the path from the root to that leaf.
+
+Return the sum of these numbers. The answer is guaranteed to fit in a 32-bits integer.
+
+ 
+
+Example 1:
+
+
+Input: root = [1,0,1,0,1,0,1]
+Output: 22
+Explanation: (100) + (101) + (110) + (111) = 4 + 5 + 6 + 7 = 22
+*/
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var sumRootToLeaf = function(root) {
+    
+   return search(root,0)
+    function search(root,value){
+        if(root === null){
+            
+            return 0
+        }
+        //converts number from base 2 to 10. *2 adds another bitwise shift << and the root val adds 1 or 0 to the total
+        value = value*2+root.val
+        //dfs and total up the values
+        return root.left == root.right ? value : search(root.left, value) + search(root.right, value);
+    }
+
+};
