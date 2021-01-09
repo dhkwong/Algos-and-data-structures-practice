@@ -1,0 +1,44 @@
+/*
+Given a m x n matrix grid which is sorted in non-increasing order both row-wise and column-wise, return the number of negative numbers in grid.
+
+ 
+
+Example 1:
+
+Input: grid = [[4,3,2,-1],[3,2,1,-1],[1,1,-1,-2],[-1,-1,-2,-3]]
+Output: 8
+Explanation: There are 8 negatives number in the matrix.
+
+this method uses the stepwise way negatives are laid out. 
+++++++
+++++--
+++++--
++++---
++-----
++-----
+ by starting from the bottom left until you hit a negative, you can add all the remaining negatives in that row before moving up a column. This allows us to end with a O(M+N) time instead of O(M*N)
+*/
+
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var countNegatives = function(grid) {
+    let height = grid.length, len = grid[0].length, row = height - 1, col = 0, count = 0
+    
+    while(row >= 0 && col < len){
+	//check for negative
+        if(grid[row][col]<0){
+	    //if negative, move row one above
+            row--
+	    //add remaining length in row to total count, since we know the rest are negative
+            count += len-col 
+        }else{
+	    //else, number is positive and we move to the next colum in the row we're checking
+            ++col
+        }
+        
+    }
+    return count
+    
+};
