@@ -1,0 +1,33 @@
+
+
+##Return the "centered" average of an array of ints, which we'll say is the mean average of the values, except ignoring the largest and smallest values ##in the array. If there are multiple copies of the smallest value, ignore just one copy, and likewise for the largest value. Use int division to produce ##the final average. You may assume that the array is length 3 or more.
+
+##centered_average([1, 2, 3, 4, 100]) → 3
+##centered_average([1, 1, 5, 5, 10, 8, 7]) → 5
+
+
+def centered_average(nums):
+  
+  min = 0
+  max = 1
+  sum = 0
+  
+  ##first, find the indexes of the min and max
+  for i in range(len(nums)):
+    if(nums[i]<nums[min]):
+      min = i
+    if(nums[i]>nums[max]):
+      max = i
+      
+  ##go through the array one more time, skipping over the indexes of min and max
+  for j in range(len(nums)):
+    ##if you encounter the min or max index, continue/skip
+    if j == min or j == max:
+      continue
+    ##else, add to the sum
+    else:
+      sum += nums[j]
+  ##divisor variable to create average
+  divisor = len(nums)-2
+  ##return average
+  return sum/divisor
