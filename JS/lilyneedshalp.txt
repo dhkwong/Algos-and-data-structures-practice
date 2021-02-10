@@ -1,0 +1,68 @@
+# Print the number of times “love” appears in the string
+# - Print the percentage of words in the string that are the word “chocolate”, not case
+# sensitive.
+# - Print the percentage of words in the string that are NOT the word “chocolate”
+# - Change all “cup” substrings to “carrot”
+# - **For extra credit: Print out the index in the string that is the start of the word “lollipop”,
+# for the last occurrence of “lollipop” within the string. You’ll have to look up how to do this.
+
+
+cupcake_ipsum = """Cupcake ipsum dolor sit amet candy canes. Gummies tart cotton candy
+brownie jelly-o. Pie dessert cupcake. Bear claw dragee tiramisu cupcake tiramisu brownie cake.
+Jelly beans pudding donut tart souffle I love. Biscuit gummies I love chocolate bar. Chocolate
+fruitcake toffee. Halvah toffee topping. Toffee dessert pie pudding croissant lollipop I love. I love
+tootsie roll jelly gummies I love. Pastry donut liquorice. Chocolate cake chocolate cake
+gingerbread liquorice gummies sweet macaroon sweet roll macaroon. Lemon drops I love I love
+biscuit I love brownie gummies chocolate. Chocolate cake I love cake marshmallow cheesecake
+I love cake. Sugar plum sweet lollipop halvah candy canes bear claw marzipan pudding
+liquorice. Chocolate I love chocolate cake. Ice cream I love marzipan cheesecake caramels ice
+cream candy canes dessert. Google cake dragee cake wafer cupcake toffee candy topping.
+Cake carrot cake cotton candy chocolate cake. Cake tart chocolate cake dessert I love
+chocolate cake ice cream. Pudding powder I love biscuit cake sweet macaroon toffee jelly. I love
+cookie candy cupcake donut. Macaroon danish wafer gingerbread jujubes I love jelly-o. Sesame
+snaps croissant gummies donut macaroon fruitcake I love gummies. Brownie powder powder.
+Ice cream candy cheesecake I love cake topping toffee muffin souffle. Chocolate bar jujubes
+lemon drops. Lollipop dragee oat cake dragee cookie macaroon. Gingerbread muffin pudding
+bear claw I love tart. Pie candy pudding I love. Bonbon jelly macaroon cotton candy lollipop. I
+love wafer chocolate cake pudding candy canes cookie pastry candy canes macaroon. Icing
+liquorice pastry cheesecake cheesecake. Powder jelly-o dessert tootsie roll tiramisu. Candy
+canes cupcake carrot cake jelly-o jelly-o oat cake I love cheesecake. Pastry gingerbread chupa
+chups ice cream I love I love jelly liquorice oat cake. Wafer lemon drops I love. Pie fruitcake oat
+cake fruitcake pie chocolate cake sesame snaps I love bear claw. Oat cake sesame snaps
+sweet roll cupcake gummies jelly-o brownie powder. Liquorice biscuit cupcake sesame snaps
+danish dragee chocolate."""
+
+def scavenger_hunt(text):
+    print(f'{text.count("love")} counts of love')
+    chocolate_count(text)
+    cup_to_carrot(text)
+    
+def chocolate_count(text):    
+    # first way
+    # templist = text.split();
+    # chococount = 0;
+    # wordcount = len(templist)
+    # for i in range(len(templist)):
+    #     # print(templist[i].lower())
+    #     word = templist[i].lower()
+    #     if "chocolate" in word: 
+    #          chococount+=1
+    # print(f'{(chococount/len(templist))*100}% chocolate')
+    # print(f'{(1-(chococount/len(templist)))*100}% NOT chocolate')
+    
+    # second way
+    wordcount = len(text.split())
+    chococount = text.lower().count("chocolate".lower())
+    print(f'{(chococount/wordcount *100)}% chocolate')
+    print(f'{((1-(chococount/wordcount))*100)}% NOT chocolate')
+    
+def cup_to_carrot(text):
+    text = text.replace("cup","carrot")
+    print(text)
+    
+# dostuff(cupcake_ipsum)
+# chocolatecount(cupcake_ipsum)
+# cuptocarrot(cupcake_ipsum)
+scavenger_hunt(cupcake_ipsum)
+    
+    
