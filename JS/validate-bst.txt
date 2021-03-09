@@ -1,0 +1,27 @@
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isValidBST = function(root) {
+    //if input is []
+    if(!root){
+        return true
+    }
+    function dfs(root, min, max){
+    if(!root){
+        return true
+    }
+    // let res = true;
+    if ((min !== null && root.val<= min)||(max!==null && root.val>=max)){
+        return false
+    }
+	//continue checking rest of tree
+        return (dfs(root.left, min, root.val)&&dfs(root.right,root.val, max))
+    }
+    //instantiate helper function
+    return dfs(root,null,null)
+};
